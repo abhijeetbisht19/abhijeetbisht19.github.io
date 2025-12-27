@@ -12,12 +12,13 @@
         }
 
         :root {
-            --primary: #2563eb;
-            --secondary: #1e40af;
-            --dark: #1e293b;
-            --light: #f8fafc;
+            --primary: #003d82;
+            --secondary: #00215b;
+            --accent: #0055b8;
+            --dark: #001a3d;
+            --light: #f5f8fc;
             --text: #334155;
-            --accent: #0ea5e9;
+            --navy-light: #004c9e;
         }
 
         body {
@@ -78,6 +79,21 @@
             color: white;
             padding: 6rem 0;
             text-align: center;
+        }
+
+        .hero-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin-bottom: 1.5rem;
+            object-fit: cover;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-photo:hover {
+            transform: scale(1.05);
         }
 
         .hero h1 {
@@ -186,6 +202,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             text-align: center;
             transition: transform 0.3s;
+            border-top: 4px solid var(--primary);
         }
 
         .stat-card:hover {
@@ -272,6 +289,7 @@
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 3px solid var(--primary);
         }
 
         .skill-category h3 {
@@ -293,6 +311,13 @@
             font-size: 0.9rem;
             color: var(--text);
             border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
 
         /* Projects Section */
@@ -308,11 +333,12 @@
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--primary);
         }
 
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 20px rgba(0,61,130,0.2);
         }
 
         .project-content {
@@ -338,7 +364,7 @@
         }
 
         .tech-tag {
-            background: #e0f2fe;
+            background: #e6f0fa;
             color: var(--primary);
             padding: 0.3rem 0.8rem;
             border-radius: 15px;
@@ -420,7 +446,7 @@
             border-radius: 5px;
             text-decoration: none;
             font-weight: 600;
-            transition: transform 0.3s;
+            transition: transform 0.3s, background 0.3s;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -428,6 +454,7 @@
 
         .contact-link:hover {
             transform: scale(1.05);
+            background: var(--light);
         }
 
         /* Footer */
@@ -458,6 +485,11 @@
 
             .hero .subtitle {
                 font-size: 1.2rem;
+            }
+
+            .hero-photo {
+                width: 150px;
+                height: 150px;
             }
 
             .about-content {
@@ -498,12 +530,13 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
+            <img src="Abhijeet-Bisht.png" alt="Abhijeet Bisht" class="hero-photo">
             <h1>Abhijeet Bisht</h1>
             <p class="subtitle">Programmer Analyst | Oracle Fusion ERP Cloud Specialist</p>
             <p class="description">
-                Passionate about building scalable enterprise solutions with expertise in Oracle Cloud, 
-                PL/SQL development, and REST API integrations. Transforming complex business processes 
-                into efficient technical solutions.
+                Bridging enterprise solutions with data-driven insights. Expertise in Oracle Cloud and PL/SQL, 
+                while expanding into Python and Data Analytics to unlock powerful business intelligence. 
+                Transforming complex data into actionable insights and scalable technical solutions.
             </p>
             <div class="cta-buttons">
                 <a href="#contact" class="btn btn-primary">Get In Touch</a>
@@ -532,8 +565,10 @@
                         and more efficient.
                     </p>
                     <p>
-                        When I'm not coding, I'm exploring new technologies, working on side projects, 
-                        and collaborating with talented people to learn different perspectives.
+                        When I'm not coding, I'm on the field playing football, badminton, or pickleball, 
+                        or watching cricket, tennis, and F1 races. I'm passionate about sports and love 
+                        connecting with people to discuss emerging technology trends and their impact in 
+                        daily life and professional sports.
                     </p>
                 </div>
                 <div class="stats">
