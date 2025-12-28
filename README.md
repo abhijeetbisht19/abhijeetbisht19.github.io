@@ -2,7 +2,7 @@
 
 <div align="center">
   
-  [![Portfolio](https://img.shields.io/badge/Portfolio-003d82?style=for-the-badge&logo=google-chrome&logoColor=white)](https://abhhiijeet.github.io)
+  [![Portfolio](https://img.shields.io/badge/Portfolio-003d82?style=for-the-badge&logo=google-chrome&logoColor=white)](https://abhijeetbisht19.github.io)
   [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/abhijeetbisht19)
   [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:abhijeetbisht19@gmail.com)
   
