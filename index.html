@@ -14,11 +14,9 @@
         :root {
             --primary: #003d82;
             --secondary: #00215b;
-            --accent: #0055b8;
             --dark: #001a3d;
             --light: #f5f8fc;
             --text: #334155;
-            --navy-light: #004c9e;
         }
 
         body {
@@ -34,7 +32,6 @@
             padding: 0 20px;
         }
 
-        /* Header & Navigation */
         header {
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -73,7 +70,6 @@
             color: var(--primary);
         }
 
-        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
@@ -99,20 +95,12 @@
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease;
         }
 
         .hero .subtitle {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             opacity: 0.95;
-        }
-
-        .hero .description {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
         }
 
         .cta-buttons {
@@ -127,7 +115,7 @@
             border-radius: 5px;
             text-decoration: none;
             font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s;
             display: inline-block;
         }
 
@@ -144,10 +132,8 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Section Styles */
         section {
             padding: 4rem 0;
         }
@@ -170,57 +156,6 @@
             border-radius: 2px;
         }
 
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s;
-            border-top: 4px solid var(--primary);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .stat-label {
-            color: var(--text);
-            margin-top: 0.5rem;
-        }
-
-        /* Experience Section */
         .timeline {
             position: relative;
             max-width: 900px;
@@ -273,7 +208,6 @@
             font-weight: bold;
         }
 
-        /* Skills Section */
         #skills {
             background: white;
         }
@@ -320,7 +254,6 @@
             border-color: var(--primary);
         }
 
-        /* Projects Section */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -332,13 +265,12 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s;
             border-top: 4px solid var(--primary);
         }
 
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,61,130,0.2);
         }
 
         .project-content {
@@ -372,7 +304,6 @@
             font-weight: 500;
         }
 
-        /* Certifications Section */
         #certifications {
             background: white;
         }
@@ -407,7 +338,6 @@
             font-size: 0.9rem;
         }
 
-        /* Contact Section */
         #contact {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
@@ -446,7 +376,7 @@
             border-radius: 5px;
             text-decoration: none;
             font-weight: 600;
-            transition: transform 0.3s, background 0.3s;
+            transition: transform 0.3s;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -454,10 +384,8 @@
 
         .contact-link:hover {
             transform: scale(1.05);
-            background: var(--light);
         }
 
-        /* Footer */
         footer {
             background: var(--dark);
             color: white;
@@ -465,19 +393,6 @@
             padding: 2rem 0;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2rem;
@@ -492,14 +407,6 @@
                 height: 150px;
             }
 
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
             .nav-links {
                 gap: 1rem;
                 font-size: 0.9rem;
@@ -512,12 +419,10 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <header>
         <nav class="container">
             <div class="logo">AB</div>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -527,73 +432,18 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <img src="Abhijeet-Bisht.png" alt="Abhijeet Bisht" class="hero-photo">
             <h1>Abhijeet Bisht</h1>
-            <p class="subtitle">Programmer Analyst | Oracle Fusion ERP Cloud Specialist</p>
-            <p class="description">
-                Bridging enterprise solutions with data-driven insights. Expertise in Oracle Cloud and PL/SQL, 
-                while expanding into Python and Data Analytics to unlock powerful business intelligence. 
-                Transforming complex data into actionable insights and scalable technical solutions.
-            </p>
+            <p class="subtitle">Programmer Analyst</p>
             <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                <a href="https://linkedin.com/in/abhijeetbisht19" target="_blank" class="btn btn-secondary">LinkedIn Profile</a>
+                <a href="mailto:abhijeetbisht19@gmail.com" class="btn btn-primary">Email Me</a>
+                <a href="https://linkedin.com/in/abhijeetbisht19" target="_blank" class="btn btn-secondary">LinkedIn</a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Hello! I'm Abhijeet</h3>
-                    <p>
-                        I'm a Computer Science graduate with over 2 years of experience specializing in 
-                        Oracle Fusion ERP Cloud and enterprise solutions. Currently working as a Programmer 
-                        Analyst at Cognizant in Bengaluru, I focus on implementing SCM Applications and 
-                        building robust Oracle SaaS Cloud solutions.
-                    </p>
-                    <p>
-                        My expertise lies in developing efficient PL/SQL procedures, designing REST API 
-                        integrations, and optimizing database performance. I'm passionate about solving 
-                        complex problems and creating solutions that make business operations smoother 
-                        and more efficient.
-                    </p>
-                    <p>
-                        When I'm not coding, I'm on the field playing football, badminton, or pickleball, 
-                        or watching cricket, tennis, and F1 races. I'm passionate about sports and love 
-                        connecting with people to discuss emerging technology trends and their impact in 
-                        daily life and professional sports.
-                    </p>
-                </div>
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-number">2+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">PL/SQL Procedures</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Certifications</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">95%+</div>
-                        <div class="stat-label">Client Satisfaction</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
     <section id="experience">
         <div class="container">
             <h2 class="section-title">Professional Experience</h2>
@@ -601,33 +451,31 @@
                 <div class="timeline-item">
                     <h3>Programmer Analyst</h3>
                     <div class="company">Cognizant</div>
-                    <div class="date">December 2024 - Present | Bengaluru, Karnataka, India</div>
+                    <div class="date">Dec 2024 – Present | Bengaluru, Karnataka, India</div>
                     <ul>
-                        <li>Implemented Oracle Fusion SCM modules improving supply chain efficiency by streamlining procurement and inventory management</li>
-                        <li>Developed and optimized 50+ PL/SQL procedures reducing data processing time by 30%</li>
-                        <li>Designed REST API integrations for seamless data exchange between Oracle Cloud and third-party applications</li>
-                        <li>Created complex SQL queries supporting business reporting and delivering actionable insights</li>
-                        <li>Maintained 95%+ client satisfaction through effective collaboration and timely project delivery</li>
+                        <li>Implemented and configured Oracle Fusion SCM modules for enterprise clients, improving supply chain efficiency by streamlining procurement and inventory management processes</li>
+                        <li>Developed and optimized 50+ PL/SQL procedures, packages, and functions for ETL operations, reducing data processing time by 30% and ensuring data integrity across integrated systems</li>
+                        <li>Designed and implemented REST API integrations for seamless data exchange between Oracle Cloud and third-party applications</li>
+                        <li>Created complex SQL queries and database objects to support business reporting requirements</li>
+                        <li>Collaborated with cross-functional teams to gather requirements, design technical solutions, and deliver projects within scope and timeline, maintaining 95%+ client satisfaction</li>
                     </ul>
                 </div>
 
                 <div class="timeline-item">
                     <h3>Programmer Analyst Trainee</h3>
                     <div class="company">Cognizant</div>
-                    <div class="date">November 2023 - December 2024 | Bengaluru, Karnataka, India</div>
+                    <div class="date">Nov 2023 – Dec 2024 | Bengaluru, Karnataka, India</div>
                     <ul>
                         <li>Completed comprehensive training in Oracle Fusion Financials and SCM Cloud applications</li>
-                        <li>Developed proficiency in Oracle SaaS Cloud solutions including Oracle APEX</li>
-                        <li>Executed data migration projects using ETL methodologies with zero data loss</li>
-                        <li>Identified and resolved 100+ defects during testing phases of Oracle Fusion implementations</li>
-                        <li>Documented technical specifications and process flows improving knowledge transfer</li>
+                        <li>Developed proficiency in Oracle SaaS Cloud solutions</li>
+                        <li>Performed testing for Oracle Fusion implementations, identifying and resolving 100+ defects</li>
+                        <li>Documented process flows using Microsoft Visio and Excel</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills">
         <div class="container">
             <h2 class="section-title">Technical Skills</h2>
@@ -636,7 +484,7 @@
                     <h3>Programming Languages</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Python</span>
-                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Oracle SQL</span>
                         <span class="skill-tag">PL/SQL</span>
                     </div>
                 </div>
@@ -645,10 +493,9 @@
                     <h3>Oracle Technologies</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Oracle Fusion ERP Cloud</span>
-                        <span class="skill-tag">Oracle SCM</span>
+                        <span class="skill-tag">Oracle SCM Applications</span>
                         <span class="skill-tag">Oracle APEX</span>
                         <span class="skill-tag">Oracle Database</span>
-                        <span class="skill-tag">SQL Developer</span>
                     </div>
                 </div>
 
@@ -657,8 +504,8 @@
                     <div class="skill-tags">
                         <span class="skill-tag">Oracle SaaS Cloud</span>
                         <span class="skill-tag">ERP Implementation</span>
-                        <span class="skill-tag">SCM Modules</span>
                         <span class="skill-tag">Business Process Optimization</span>
+                        <span class="skill-tag">SCM Modules</span>
                     </div>
                 </div>
 
@@ -666,7 +513,7 @@
                     <h3>Integration & APIs</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">REST APIs</span>
-                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">Postman API</span>
                         <span class="skill-tag">ETL</span>
                         <span class="skill-tag">Web Services</span>
                     </div>
@@ -675,63 +522,34 @@
                 <div class="skill-category">
                     <h3>Database & Tools</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Database Design</span>
-                        <span class="skill-tag">Performance Tuning</span>
-                        <span class="skill-tag">Query Optimization</span>
-                        <span class="skill-tag">Microsoft Excel</span>
+                        <span class="skill-tag">Oracle Fusion Applications</span>
+                        <span class="skill-tag">Oracle Autonomous Database</span>
                         <span class="skill-tag">Microsoft Visio</span>
                         <span class="skill-tag">Git</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Methodologies</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Agile</span>
-                        <span class="skill-tag">Waterfall</span>
-                        <span class="skill-tag">SDLC</span>
-                        <span class="skill-tag">Requirements Gathering</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
     <section id="projects">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
+            <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-content">
-                        <h3>Oracle Cloud Integration Platform</h3>
+                        <h3>Oracle Fusion Import Utility</h3>
                         <p>
                             Built a custom integration solution connecting Oracle Fusion SCM with external 
                             vendor systems, automating procurement workflows and reducing manual data entry 
-                            by 60%. Developed real-time inventory tracking dashboard using Oracle APEX.
+                            by 60%. Implemented PL/SQL Packages connecting with OIC Integrations to automate 
+                            imports of Items, Receipts, and Invoices to eliminate Manual Imports.
                         </p>
                         <div class="tech-stack">
                             <span class="tech-tag">PL/SQL</span>
-                            <span class="tech-tag">REST APIs</span>
-                            <span class="tech-tag">Oracle APEX</span>
                             <span class="tech-tag">Oracle Cloud</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-content">
-                        <h3>ETL Data Migration Framework</h3>
-                        <p>
-                            Engineered an automated ETL pipeline for migrating 500K+ records from legacy 
-                            ERP systems to Oracle Cloud. Implemented data validation and error handling 
-                            mechanisms ensuring 99.9% data accuracy.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">SQL</span>
-                            <span class="tech-tag">PL/SQL</span>
-                            <span class="tech-tag">ETL</span>
+                            <span class="tech-tag">OIC</span>
+                            <span class="tech-tag">REST APIs</span>
                         </div>
                     </div>
                 </div>
@@ -740,15 +558,14 @@
                     <div class="project-content">
                         <h3>Expense Management System</h3>
                         <p>
-                            Utilized Machine Learning with LSTM model for expense prediction, improving 
-                            accuracy by 15% through optimized training. Successfully integrated with 
-                            real-time datasets for automated expense predictions.
+                            Utilized Machine Learning and Artificial Intelligence technologies, with a focus 
+                            on LSTM, for model training using the dataset. Using LSTM model improved prediction 
+                            accuracy by 15%.
                         </p>
                         <div class="tech-stack">
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">Machine Learning</span>
                             <span class="tech-tag">LSTM</span>
-                            <span class="tech-tag">Data Analytics</span>
                         </div>
                     </div>
                 </div>
@@ -756,18 +573,17 @@
         </div>
     </section>
 
-    <!-- Certifications Section -->
     <section id="certifications">
         <div class="container">
             <h2 class="section-title">Certifications</h2>
             <div class="cert-grid">
                 <div class="cert-card">
-                    <h3>Oracle Database SQL Certified Associate</h3>
-                    <p class="cert-issuer">Oracle • 1Z0-071</p>
+                    <h3>1Z0-071: Oracle Database SQL Certified Associate</h3>
+                    <p class="cert-issuer">Oracle</p>
                 </div>
                 <div class="cert-card">
-                    <h3>Oracle Financials Business Process Certified Associate</h3>
-                    <p class="cert-issuer">Oracle • Rel 2</p>
+                    <h3>Oracle Financials Business Process Certified Associate Rel 2</h3>
+                    <p class="cert-issuer">Oracle</p>
                 </div>
                 <div class="cert-card">
                     <h3>Databases and SQL for Data Science with Python</h3>
@@ -778,41 +594,36 @@
                     <p class="cert-issuer">HackerRank</p>
                 </div>
                 <div class="cert-card">
-                    <h3>Vibe Code Hackathon Winner</h3>
-                    <p class="cert-issuer">Gemini Code Assist</p>
+                    <h3>Vibe Code Hackathon - Vibe Coded using Gemini Code Assist</h3>
+                    <p class="cert-issuer">Hackathon Winner</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
         <div class="container">
-            <h2 class="section-title">Let's Connect</h2>
+            <h2 class="section-title">Contact</h2>
             <div class="contact-content">
-                <p>
-                    I'm always interested in hearing about new opportunities, projects, 
-                    or just having a chat about technology!
-                </p>
+                <p>Bengaluru, Karnataka, India</p>
                 <div class="contact-links">
                     <a href="mailto:abhijeetbisht19@gmail.com" class="contact-link">
-                        📧 Email Me
+                        📧 Email
                     </a>
                     <a href="https://linkedin.com/in/abhijeetbisht19" target="_blank" class="contact-link">
                         💼 LinkedIn
                     </a>
-                    <a href="https://github.com/abhijeetbisht19" target="_blank" class="contact-link">
-                        💻 GitHub
+                    <a href="https://abhijeetbisht19.github.io" target="_blank" class="contact-link">
+                        🌐 Website
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Abhijeet Bisht. Built with passion and code.</p>
+            <p>&copy; 2024 Abhijeet Bisht</p>
         </div>
     </footer>
 </body>
