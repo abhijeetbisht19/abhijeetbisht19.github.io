@@ -208,6 +208,33 @@
             font-weight: bold;
         }
 
+        .education-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .education-section h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-section .degree {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-section .date {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
         #skills {
             background: white;
         }
@@ -315,15 +342,29 @@
         }
 
         .cert-card {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary);
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s;
+            border-top: 4px solid var(--primary);
+            cursor: pointer;
         }
 
         .cert-card:hover {
-            transform: translateX(5px);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .cert-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--light);
+        }
+
+        .cert-content {
+            padding: 1.5rem;
         }
 
         .cert-card h3 {
@@ -336,6 +377,22 @@
             color: var(--primary);
             font-weight: 600;
             font-size: 0.9rem;
+        }
+
+        .view-cert-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .view-cert-btn:hover {
+            background: var(--secondary);
         }
 
         #contact {
@@ -424,6 +481,7 @@
             <div class="logo">AB</div>
             <ul class="nav-links">
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#certifications">Certifications</a></li>
@@ -436,7 +494,7 @@
         <div class="container">
             <img src="Abhijeet-Bisht.png" alt="Abhijeet Bisht" class="hero-photo">
             <h1>Abhijeet Bisht</h1>
-            <p class="subtitle">Programmer Analyst</p>
+            <p class="subtitle">Programmer Analyst | Oracle Fusion Specialist</p>
             <div class="cta-buttons">
                 <a href="mailto:abhijeetbisht19@gmail.com" class="btn btn-primary">Email Me</a>
                 <a href="https://linkedin.com/in/abhijeetbisht19" target="_blank" class="btn btn-secondary">LinkedIn</a>
@@ -453,10 +511,10 @@
                     <div class="company">Cognizant</div>
                     <div class="date">Dec 2024 – Present | Bengaluru, Karnataka, India</div>
                     <ul>
-                        <li>Implemented and configured Oracle Fusion SCM modules for enterprise clients, improving supply chain efficiency by streamlining procurement and inventory management processes</li>
-                        <li>Developed and optimized 50+ PL/SQL procedures, packages, and functions for ETL operations, reducing data processing time by 30% and ensuring data integrity across integrated systems</li>
-                        <li>Designed and implemented REST API integrations for seamless data exchange between Oracle Cloud and third-party applications</li>
-                        <li>Created complex SQL queries and database objects to support business reporting requirements</li>
+                        <li>Developed and optimized 50+ PL/SQL procedures, packages, and functions for ETL operations, making data migration efficient, reducing data processing time by 30% and ensuring data integrity across integrated systems</li>
+                        <li>Implemented REST API integrations for seamless data exchange between Oracle Fusion Cloud and third-party applications like Bank of America (BoA), DataLake, Blackline etc.</li>
+                        <li>Configured Oracle Fusion modules for enterprise clients, improving efficiency by streamlining supply chain modules</li>
+                        <li>Created complex Oracle SQL queries, database objects and web applications for Oracle APEX to support business reporting requirements</li>
                         <li>Collaborated with cross-functional teams to gather requirements, design technical solutions, and deliver projects within scope and timeline, maintaining 95%+ client satisfaction</li>
                     </ul>
                 </div>
@@ -466,12 +524,22 @@
                     <div class="company">Cognizant</div>
                     <div class="date">Nov 2023 – Dec 2024 | Bengaluru, Karnataka, India</div>
                     <ul>
-                        <li>Completed comprehensive training in Oracle Fusion Financials and SCM Cloud applications</li>
-                        <li>Developed proficiency in Oracle SaaS Cloud solutions</li>
                         <li>Performed testing for Oracle Fusion implementations, identifying and resolving 100+ defects</li>
                         <li>Documented process flows using Microsoft Visio and Excel</li>
                     </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-section">
+                <h3>Graphic Era Deemed to be University</h3>
+                <div class="degree">Bachelor of Technology in Computer Science and Technology</div>
+                <div class="date">July 2019 – June 2023 | Dehradun, India</div>
+                <p style="margin-top: 0.5rem; color: var(--text);">Relevant Coursework: Database Management Systems (DBMS), Programming Languages</p>
             </div>
         </div>
     </section>
@@ -483,19 +551,9 @@
                 <div class="skill-category">
                     <h3>Programming Languages</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
                         <span class="skill-tag">Oracle SQL</span>
                         <span class="skill-tag">PL/SQL</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Oracle Technologies</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Oracle Fusion ERP Cloud</span>
-                        <span class="skill-tag">Oracle SCM Applications</span>
-                        <span class="skill-tag">Oracle APEX</span>
-                        <span class="skill-tag">Oracle Database</span>
+                        <span class="skill-tag">Python</span>
                     </div>
                 </div>
 
@@ -503,19 +561,18 @@
                     <h3>Cloud & ERP</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Oracle SaaS Cloud</span>
-                        <span class="skill-tag">ERP Implementation</span>
-                        <span class="skill-tag">Business Process Optimization</span>
-                        <span class="skill-tag">SCM Modules</span>
+                        <span class="skill-tag">Oracle SCM Applications</span>
+                        <span class="skill-tag">Oracle APEX</span>
+                        <span class="skill-tag">Oracle Database</span>
                     </div>
                 </div>
 
                 <div class="skill-category">
                     <h3>Integration & APIs</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">REST APIs</span>
-                        <span class="skill-tag">Postman API</span>
+                        <span class="skill-tag">REST API</span>
+                        <span class="skill-tag">Postman</span>
                         <span class="skill-tag">ETL</span>
-                        <span class="skill-tag">Web Services</span>
                     </div>
                 </div>
 
@@ -525,6 +582,8 @@
                         <span class="skill-tag">Oracle Fusion Applications</span>
                         <span class="skill-tag">Oracle Autonomous Database</span>
                         <span class="skill-tag">Microsoft Visio</span>
+                        <span class="skill-tag">PyCharm</span>
+                        <span class="skill-tag">Jupyter</span>
                         <span class="skill-tag">Git</span>
                     </div>
                 </div>
@@ -538,34 +597,45 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-content">
-                        <h3>Oracle Fusion Import Utility</h3>
+                        <h3>Oracle Fusion - AR Receipts Remittances Integration</h3>
                         <p>
-                            Built a custom integration solution connecting Oracle Fusion SCM with external 
-                            vendor systems, automating procurement workflows and reducing manual data entry 
-                            by 60%. Implemented PL/SQL Packages connecting with OIC Integrations to automate 
-                            imports of Items, Receipts, and Invoices to eliminate Manual Imports.
+                            Created an end-to-end integration solution connecting Point of Sale invoice data with Oracle Fusion Accounts Receivable, reducing manual data entry and accelerating receipt processing. Developed a PL/SQL package to extract, transform, and validate POS transaction data, leveraging REST API endpoints to generate AR receipts and automatically apply invoice payments.
                         </p>
                         <div class="tech-stack">
                             <span class="tech-tag">PL/SQL</span>
-                            <span class="tech-tag">Oracle Cloud</span>
-                            <span class="tech-tag">OIC</span>
-                            <span class="tech-tag">REST APIs</span>
+                            <span class="tech-tag">Oracle Fusion</span>
+                            <span class="tech-tag">REST API</span>
+                            <span class="tech-tag">ETL</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-content">
-                        <h3>Expense Management System</h3>
+                        <h3>AI Document Summarization Tool</h3>
                         <p>
-                            Utilized Machine Learning and Artificial Intelligence technologies, with a focus 
-                            on LSTM, for model training using the dataset. Using LSTM model improved prediction 
-                            accuracy by 15%.
+                            Developed a document summarization application that processes .word file format to generate executive summaries, accelerating the requirements gathering phase for SDLC. Built during Vibe Code Hackathon using cutting-edge AI technologies.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">AI</span>
+                            <span class="tech-tag">NLP</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Document Processing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Machine Learning-Based Movie Recommendation Engine</h3>
+                        <p>
+                            Designed and implemented a content-based recommendation system utilizing Python data science libraries to analyze IMDb movie datasets, delivering personalized movie suggestions analyzing genre classification, user ratings, and popularity metrics.
                         </p>
                         <div class="tech-stack">
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">Machine Learning</span>
-                            <span class="tech-tag">LSTM</span>
+                            <span class="tech-tag">Data Science</span>
+                            <span class="tech-tag">Content-Based Filtering</span>
                         </div>
                     </div>
                 </div>
@@ -577,25 +647,61 @@
         <div class="container">
             <h2 class="section-title">Certifications</h2>
             <div class="cert-grid">
-                <div class="cert-card">
-                    <h3>1Z0-071: Oracle Database SQL Certified Associate</h3>
-                    <p class="cert-issuer">Oracle</p>
+                <div class="cert-card" onclick="window.open('oracle_sql.png', '_blank')">
+                    <img src="oracle_sql.png" alt="Oracle Database SQL Certification" class="cert-image">
+                    <div class="cert-content">
+                        <h3>1Z0-071: Oracle Database SQL Certified Associate</h3>
+                        <p class="cert-issuer">Oracle</p>
+                        <a href="oracle_sql.png" target="_blank" class="view-cert-btn">View Certificate</a>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <h3>Oracle Financials Business Process Certified Associate Rel 2</h3>
-                    <p class="cert-issuer">Oracle</p>
+                <div class="cert-card" onclick="window.open('oracle_dataplatform.png', '_blank')">
+                    <img src="oracle_dataplatform.png" alt="Oracle Data Platform Certification" class="cert-image">
+                    <div class="cert-content">
+                        <h3>Oracle Data Platform Certified Associate</h3>
+                        <p class="cert-issuer">Oracle</p>
+                        <a href="oracle_dataplatform.png" target="_blank" class="view-cert-btn">View Certificate</a>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <h3>Databases and SQL for Data Science with Python</h3>
-                    <p class="cert-issuer">IBM/Coursera</p>
+                <div class="cert-card" onclick="window.open('oracle_fbp.png', '_blank')">
+                    <img src="oracle_fbp.png" alt="Oracle Financials Business Process Certification" class="cert-image">
+                    <div class="cert-content">
+                        <h3>Oracle Financials Business Process Certified Associate</h3>
+                        <p class="cert-issuer">Oracle</p>
+                        <a href="oracle_fbp.png" target="_blank" class="view-cert-btn">View Certificate</a>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <h3>SQL Advanced Certification</h3>
-                    <p class="cert-issuer">HackerRank</p>
+                <div class="cert-card" onclick="window.open('database.png', '_blank')">
+                    <img src="database.png" alt="Databases and SQL for Data Science Certification" class="cert-image">
+                    <div class="cert-content">
+                        <h3>Databases and SQL for Data Science with Python</h3>
+                        <p class="cert-issuer">Data Science</p>
+                        <a href="database.png" target="_blank" class="view-cert-btn">View Certificate</a>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <h3>Vibe Code Hackathon - Vibe Coded using GitHub Copilot</h3>
-                    <p class="cert-issuer">Hackathon Winner</p>
+                <div class="cert-card" onclick="window.open('sql_advanced.png', '_blank')">
+                    <img src="sql_advanced.png" alt="SQL Advanced Certification" class="cert-image">
+                    <div class="cert-content">
+                        <h3>SQL Advanced Certification</h3>
+                        <p class="cert-issuer">SQL</p>
+                        <a href="sql_advanced.png" target="_blank" class="view-cert-btn">View Certificate</a>
+                    </div>
+                </div>
+                <div class="cert-card" onclick="window.open('vibe_code.png', '_blank')">
+                    <img src="vibe_code.png" alt="Vibe Code Hackathon Certificate" class="cert-image">
+                    <div class="cert-content">
+                        <h3>Vibe Code Hackathon - Vibe Coded using Github CoPilot</h3>
+                        <p class="cert-issuer">Hackathons</p>
+                        <a href="vibe_code.png" target="_blank" class="view-cert-btn">View Certificate</a>
+                    </div>
+                </div>
+                <div class="cert-card" onclick="window.open('paper.pdf', '_blank')">
+                    <img src="https://via.placeholder.com/400x200/003d82/ffffff?text=Research+Paper" alt="Machine Learning Finance Analyzer Paper" class="cert-image">
+                    <div class="cert-content">
+                        <h3>Machine Learning based Finance Analyzer</h3>
+                        <p class="cert-issuer">Research - 22nd IEEE International Conference on ML Applications</p>
+                        <a href="paper.pdf" target="_blank" class="view-cert-btn">View Paper</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -605,7 +711,7 @@
         <div class="container">
             <h2 class="section-title">Contact</h2>
             <div class="contact-content">
-                <p>Bengaluru, Karnataka, India</p>
+                <p>Bengaluru, India</p>
                 <div class="contact-links">
                     <a href="mailto:abhijeetbisht19@gmail.com" class="contact-link">
                         📧 Email
@@ -623,7 +729,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Abhijeet Bisht</p>
+            <p>&copy; 2024 Abhijeet Bisht. All rights reserved.</p>
         </div>
     </footer>
 </body>
