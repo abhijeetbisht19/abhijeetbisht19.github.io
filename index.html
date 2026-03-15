@@ -1,1109 +1,1128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abhijeet Bisht</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg: #000000;
-            --surface: #0f0f0f;
-            --border: #1d1d1d;
-            --border-hover: #2f2f2f;
-            --text: #e7e9ea;
-            --muted: #71767b;
-            --accent: #1d9bf0;
-            --accent-dim: rgba(29, 155, 240, 0.12);
-            --accent-hover: rgba(29, 155, 240, 0.08);
-            --green: #00ba7c;
-            --yellow: #ffd400;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ─── Layout ─── */
-        .layout {
-            display: grid;
-            grid-template-columns: 275px 1fr 360px;
-            min-height: 100vh;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        /* ─── Left Sidebar ─── */
-        .sidebar {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 0 12px;
-            border-right: 1px solid var(--border);
-            overflow-y: auto;
-        }
-
-        .sidebar-logo {
-            padding: 12px;
-            margin-bottom: 4px;
-            margin-top: 4px;
-        }
-
-        .logo-mark {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 1.8rem;
-            color: var(--text);
-            letter-spacing: -2px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 12px 16px;
-            border-radius: 9999px;
-            cursor: pointer;
-            transition: background 0.15s;
-            text-decoration: none;
-            color: var(--text);
-            font-size: 1.05rem;
-            font-weight: 400;
-            margin-bottom: 2px;
-        }
-
-        .nav-item:hover { background: rgba(255,255,255,0.05); }
-        .nav-item.active { font-weight: 600; }
-
-        .nav-icon {
-            font-size: 1.4rem;
-            width: 26px;
-            text-align: center;
-        }
-
-        .profile-card {
-            margin-top: auto;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border-radius: 9999px;
-            transition: background 0.15s;
-            cursor: pointer;
-        }
-
-        .profile-card:hover { background: rgba(255,255,255,0.05); }
-
-        .avatar-sm {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), #7856ff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 1rem;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .profile-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .profile-handle {
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
-
-        /* ─── Main Feed ─── */
-        .feed {
-            border-right: 1px solid var(--border);
-            min-height: 100vh;
-        }
-
-        .feed-header {
-            position: sticky;
-            top: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 20px;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .feed-header h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .feed-subtitle {
-            font-size: 0.8rem;
-            color: var(--muted);
-        }
-
-        /* ─── Profile Banner ─── */
-        .profile-banner {
-            height: 160px;
-            background: linear-gradient(135deg, #0a1628 0%, #001a3d 40%, #0d2137 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .banner-grid {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(29,155,240,0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(29,155,240,0.08) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-
-        .banner-glow {
-            position: absolute;
-            top: -60px;
-            right: 60px;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(29,155,240,0.3) 0%, transparent 70%);
-        }
-
-        .profile-info-row {
-            padding: 0 20px;
-            position: relative;
-        }
-
-        .profile-avatar-wrap {
-            position: relative;
-            display: inline-block;
-            margin-top: -52px;
-        }
-
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 4px solid var(--bg);
-            background: linear-gradient(135deg, var(--accent), #7856ff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 2.2rem;
-            color: white;
-        }
-
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .online-dot {
-            position: absolute;
-            bottom: 6px;
-            right: 6px;
-            width: 14px;
-            height: 14px;
-            background: var(--green);
-            border-radius: 50%;
-            border: 2px solid var(--bg);
-        }
-
-        .profile-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            padding: 12px 0;
-        }
-
-        .btn-contact {
-            padding: 8px 20px;
-            border: 1px solid var(--border-hover);
-            border-radius: 9999px;
-            background: transparent;
-            color: var(--text);
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.15s, border-color 0.15s;
-        }
-
-        .btn-contact:hover { background: rgba(255,255,255,0.05); border-color: var(--text); }
-
-        .btn-hire {
-            padding: 8px 20px;
-            border: none;
-            border-radius: 9999px;
-            background: var(--text);
-            color: var(--bg);
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: opacity 0.15s;
-        }
-
-        .btn-hire:hover { opacity: 0.85; }
-
-        .profile-name-section {
-            padding: 4px 20px 16px;
-        }
-
-        .profile-display-name {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 800;
-        }
-
-        .profile-handle-display {
-            color: var(--muted);
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-        }
-
-        .profile-bio {
-            font-size: 0.98rem;
-            line-height: 1.55;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-
-        .profile-meta {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 14px;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        .meta-icon { font-size: 1rem; }
-
-        .meta-item a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .meta-item a:hover { text-decoration: underline; }
-
-        .profile-stats {
-            display: flex;
-            gap: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .stat { font-size: 0.9rem; }
-        .stat strong { font-weight: 700; }
-        .stat span { color: var(--muted); }
-
-        /* ─── Tabs ─── */
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .tab {
-            flex: 1;
-            padding: 16px 0;
-            text-align: center;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--muted);
-            cursor: pointer;
-            position: relative;
-            transition: color 0.15s, background 0.15s;
-        }
-
-        .tab:hover { background: rgba(255,255,255,0.03); color: var(--text); }
-
-        .tab.active {
-            color: var(--text);
-            font-weight: 700;
-        }
-
-        .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 9999px;
-        }
-
-        /* ─── Posts / Cards ─── */
-        .post {
-            display: flex;
-            gap: 12px;
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-            transition: background 0.15s;
-            cursor: default;
-        }
-
-        .post:hover { background: rgba(255,255,255,0.02); }
-
-        .post-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), #7856ff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 1rem;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .post-avatar.green { background: linear-gradient(135deg, var(--green), #00875a); }
-        .post-avatar.yellow { background: linear-gradient(135deg, var(--yellow), #c09b00); color: #000; }
-        .post-avatar.purple { background: linear-gradient(135deg, #7856ff, #4e2fd4); }
-
-        .post-body { flex: 1; min-width: 0; }
-
-        .post-header {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-            margin-bottom: 4px;
-            flex-wrap: wrap;
-        }
-
-        .post-name {
-            font-weight: 700;
-            font-size: 0.97rem;
-        }
-
-        .post-handle {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        .post-dot { color: var(--muted); }
-        .post-time { color: var(--muted); font-size: 0.88rem; }
-
-        .post-content {
-            font-size: 0.97rem;
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
-
-        .post-content strong { color: var(--text); font-weight: 600; }
-        .post-content .hashtag { color: var(--accent); }
-
-        .post-card {
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 12px;
-            transition: border-color 0.15s;
-        }
-
-        .post-card:hover { border-color: var(--border-hover); }
-
-        .post-card-title {
-            font-family: 'Syne', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            margin-bottom: 6px;
-        }
-
-        .post-card-desc {
-            font-size: 0.9rem;
-            color: var(--muted);
-            line-height: 1.5;
-        }
-
-        .post-card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 10px;
-        }
-
-        .tag {
-            padding: 3px 10px;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .tag-blue { background: var(--accent-dim); color: var(--accent); }
-        .tag-green { background: rgba(0,186,124,0.12); color: var(--green); }
-        .tag-yellow { background: rgba(255,212,0,0.12); color: var(--yellow); }
-        .tag-purple { background: rgba(120,86,255,0.12); color: #a78fff; }
-
-        .post-actions {
-            display: flex;
-            gap: 24px;
-        }
-
-        .action {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--muted);
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: color 0.15s;
-            padding: 4px;
-            border-radius: 9999px;
-        }
-
-        .action:hover { color: var(--accent); }
-        .action-icon { font-size: 1rem; }
-
-        .section-divider {
-            padding: 12px 20px;
-            background: rgba(255,255,255,0.02);
-            border-bottom: 1px solid var(--border);
-            font-family: 'Syne', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--muted);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        /* ─── Right Sidebar ─── */
-        .right-sidebar {
-            padding: 16px;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .sidebar-widget {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .widget-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .skill-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .skill-row:last-child { border-bottom: none; }
-
-        .skill-label {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .skill-bar-wrap {
-            width: 100px;
-            height: 4px;
-            background: var(--border);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .skill-bar {
-            height: 100%;
-            background: var(--accent);
-            border-radius: 2px;
-            animation: grow 1s ease forwards;
-        }
-
-        @keyframes grow { from { width: 0; } }
-
-        .cert-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .cert-item:last-child { border-bottom: none; }
-
-        .cert-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: var(--accent-dim);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .cert-info { flex: 1; }
-
-        .cert-name {
-            font-size: 0.88rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-            line-height: 1.3;
-        }
-
-        .cert-org {
-            font-size: 0.8rem;
-            color: var(--muted);
-        }
-
-        .cert-item a {
-            font-size: 0.78rem;
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .cert-item a:hover { text-decoration: underline; }
-
-        .education-item {
-            padding: 10px 0;
-        }
-
-        .edu-school {
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-bottom: 3px;
-        }
-
-        .edu-degree {
-            font-size: 0.85rem;
-            color: var(--muted);
-            margin-bottom: 3px;
-        }
-
-        .edu-date {
-            font-size: 0.8rem;
-            color: var(--accent);
-        }
-
-        .contact-btn-row {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .contact-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background 0.15s;
-            color: var(--text);
-        }
-
-        .contact-btn:hover { background: rgba(255,255,255,0.05); }
-        .contact-btn-icon { font-size: 1.1rem; }
-
-        /* ─── Animated entrance ─── */
-        .post {
-            animation: fadeUp 0.4s ease both;
-        }
-
-        .post:nth-child(1) { animation-delay: 0.05s; }
-        .post:nth-child(2) { animation-delay: 0.1s; }
-        .post:nth-child(3) { animation-delay: 0.15s; }
-        .post:nth-child(4) { animation-delay: 0.2s; }
-        .post:nth-child(5) { animation-delay: 0.25s; }
-        .post:nth-child(6) { animation-delay: 0.3s; }
-        .post:nth-child(7) { animation-delay: 0.35s; }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ─── Mobile ─── */
-        @media (max-width: 1100px) {
-            .right-sidebar { display: none; }
-            .layout { grid-template-columns: 88px 1fr; }
-            .nav-item span { display: none; }
-            .nav-item { justify-content: center; padding: 12px; }
-            .profile-card .profile-info { display: none; }
-        }
-
-        @media (max-width: 700px) {
-            .layout { grid-template-columns: 1fr; }
-            .sidebar { display: none; }
-        }
-
-        /* Verified badge */
-        .verified {
-            color: var(--accent);
-            font-size: 0.9rem;
-        }
-
-        .pinned-label {
-            font-size: 0.8rem;
-            color: var(--muted);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-bottom: 8px;
-        }
-
-        .highlight-number {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            color: var(--accent);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhijeet Bisht — Programmer Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #080b10;
+  --surface: #0e1420;
+  --surface2: #141c2a;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8edf5;
+  --muted: #6b7a94;
+  --accent: #3d7fff;
+  --accent2: #00d4aa;
+  --accent3: #f0b429;
+  --glow: rgba(61,127,255,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(8,11,16,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  padding: 7px 20px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  color: var(--accent) !important;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s !important;
+}
+
+.nav-cta:hover { background: var(--accent) !important; color: var(--bg) !important; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 5vw 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(61,127,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,127,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-orb-1 {
+  width: 500px; height: 500px;
+  top: -100px; right: -80px;
+  background: radial-gradient(circle, rgba(61,127,255,0.12) 0%, transparent 65%);
+}
+
+.hero-orb-2 {
+  width: 300px; height: 300px;
+  bottom: 50px; left: 10%;
+  background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 65%);
+}
+
+.hero-content {
+  position: relative;
+  max-width: 780px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(61,127,255,0.1);
+  border: 1px solid rgba(61,127,255,0.25);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 8px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero-name .accent { color: var(--accent); }
+
+.hero-title {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 28px;
+  letter-spacing: 0.03em;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-title strong { color: var(--accent2); font-weight: 500; }
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: #9aafc8;
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 36px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s 0.35s ease both;
+}
+
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.hero-meta-item svg { opacity: 0.6; }
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.btn-primary {
+  padding: 12px 28px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.btn-outline {
+  padding: 12px 28px;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.btn-outline:hover { border-color: var(--accent); background: rgba(61,127,255,0.06); }
+
+.hero-stats {
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeUp 0.6s 0.5s ease both;
+}
+
+.stat-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 130px;
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent);
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 90px 5vw;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 48px;
+  line-height: 1.2;
+}
+
+.section-title span { color: var(--muted); font-weight: 400; font-size: 0.85em; }
+
+/* ── EXPERIENCE ── */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 52px;
+  animation: fadeUp 0.5s ease both;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -38px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 4px rgba(61,127,255,0.15);
+}
+
+.timeline-dot.current {
+  background: var(--accent2);
+  box-shadow: 0 0 0 4px rgba(0,212,170,0.15);
+}
+
+.exp-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.exp-role {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.exp-badge {
+  padding: 3px 12px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(0,212,170,0.1);
+  color: var(--accent2);
+  border: 1px solid rgba(0,212,170,0.2);
+  white-space: nowrap;
+}
+
+.exp-badge.past {
+  background: rgba(61,127,255,0.1);
+  color: var(--accent);
+  border-color: rgba(61,127,255,0.2);
+}
+
+.exp-company {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.exp-company strong { color: #9aafc8; font-weight: 500; }
+
+.exp-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exp-points li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.95rem;
+  color: #9aafc8;
+  line-height: 1.65;
+}
+
+.exp-points li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.exp-points li strong { color: var(--text); font-weight: 600; }
+
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 16px;
+}
+
+/* ── SKILLS ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.skill-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  transition: border-color 0.2s;
+}
+
+.skill-group:hover { border-color: var(--border2); }
+
+.skill-group-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+/* ── PROJECTS ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: border-color 0.25s, transform 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.project-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.project-card:hover::before { opacity: 1; }
+
+.project-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: rgba(61,127,255,0.1);
+  border: 1px solid rgba(61,127,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+}
+
+.project-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.project-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+
+/* ── CHIPS / TAGS ── */
+.chip {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: #9aafc8;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+.chip-blue { background: rgba(61,127,255,0.08); border-color: rgba(61,127,255,0.2); color: #7baeff; }
+.chip-green { background: rgba(0,212,170,0.08); border-color: rgba(0,212,170,0.2); color: #00d4aa; }
+.chip-yellow { background: rgba(240,180,41,0.08); border-color: rgba(240,180,41,0.2); color: #f0b429; }
+.chip-purple { background: rgba(150,100,255,0.08); border-color: rgba(150,100,255,0.2); color: #b08fff; }
+
+/* ── CERTIFICATIONS ── */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.cert-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: border-color 0.2s;
+}
+
+.cert-card:hover { border-color: var(--border2); }
+
+.cert-icon-wrap {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.cert-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 3px;
+}
+
+.cert-org {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ── RESEARCH ── */
+.research-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 700px;
+}
+
+.research-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.3;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.research-content {}
+.research-title { font-weight: 600; font-size: 1.02rem; margin-bottom: 6px; }
+.research-venue { font-size: 0.88rem; color: var(--muted); }
+
+/* ── EDUCATION ── */
+.edu-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  max-width: 500px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.edu-icon {
+  width: 50px; height: 50px;
+  border-radius: 10px;
+  background: rgba(61,127,255,0.1);
+  border: 1px solid rgba(61,127,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.edu-school { font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
+.edu-degree { font-size: 0.9rem; color: var(--muted); margin-bottom: 6px; line-height: 1.4; }
+.edu-date { font-size: 0.82rem; color: var(--accent2); font-weight: 500; }
+
+/* ── CONTACT ── */
+#contact {
+  padding: 90px 5vw;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-inner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 52px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(61,127,255,0.08) 0%, transparent 60%);
+}
+
+.contact-inner * { position: relative; }
+
+.contact-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+
+.contact-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 36px;
+  max-width: 420px;
+  margin-left: auto; margin-right: auto;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 22px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.contact-link:hover { border-color: var(--accent); background: rgba(61,127,255,0.08); color: var(--accent); }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 28px;
+  color: var(--muted);
+  font-size: 0.83rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ── DIVIDER ── */
+.section-divider {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5vw;
+  border-top: 1px solid var(--border);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-stats { display: none; }
+  .hero-content { max-width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .contact-inner { padding: 36px 24px; }
+  section { padding: 70px 5vw; }
+}
+</style>
 </head>
 <body>
 
-<div class="layout">
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Abhijeet<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
 
-    <!-- Left Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <span class="logo-mark">AB</span>
+<!-- HERO -->
+<section id="hero" style="padding-top:100px;padding-bottom:60px;max-width:none;position:relative;overflow:hidden;">
+  <div class="hero-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div style="max-width:1200px;margin:0 auto;padding:0 5vw;display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+    <div class="hero-content" style="flex:1;min-width:280px;">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        Available for new opportunities
+      </div>
+
+      <h1 class="hero-name">Abhijeet<br><span class="accent">Bisht</span></h1>
+
+      <p class="hero-title">
+        Programmer Analyst — <strong>Oracle Fusion · PL/SQL · REST API</strong>
+      </p>
+
+      <p class="hero-desc">
+        Results-driven IT professional with 2+ years building enterprise integrations, ETL pipelines, and Oracle ERP solutions for banking and financial services. I turn complex data problems into clean, working systems.
+      </p>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Bengaluru, India
         </div>
-
-        <a href="#" class="nav-item active">
-            <span class="nav-icon">🏠</span>
-            <span>Home</span>
-        </a>
-        <a href="#experience" class="nav-item">
-            <span class="nav-icon">💼</span>
-            <span>Experience</span>
-        </a>
-        <a href="#projects" class="nav-item">
-            <span class="nav-icon">⚡</span>
-            <span>Projects</span>
-        </a>
-        <a href="#certifications" class="nav-item">
-            <span class="nav-icon">🏅</span>
-            <span>Certs</span>
-        </a>
-        <a href="mailto:abhijeetbisht19@gmail.com" class="nav-item">
-            <span class="nav-icon">✉️</span>
-            <span>Contact</span>
-        </a>
-
-        <div class="profile-card">
-            <div class="avatar-sm">AB</div>
-            <div class="profile-info">
-                <div class="profile-name">Abhijeet Bisht</div>
-                <div class="profile-handle">@abhijeetbisht19</div>
-            </div>
+        <div class="hero-meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Cognizant
         </div>
-    </aside>
-
-    <!-- Main Feed -->
-    <main class="feed">
-        <div class="feed-header">
-            <div>
-                <h1>Abhijeet Bisht</h1>
-                <div class="feed-subtitle">7 posts</div>
-            </div>
+        <div class="hero-meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +91 74578 94930
         </div>
+      </div>
 
-        <!-- Profile Banner -->
-        <div class="profile-banner">
-            <div class="banner-grid"></div>
-            <div class="banner-glow"></div>
+      <div class="hero-actions">
+        <a href="mailto:abhijeetbisht19@gmail.com" class="btn-primary">Get In Touch</a>
+        <a href="https://linkedin.com/in/abhijeetbisht19" target="_blank" class="btn-outline">LinkedIn ↗</a>
+        <a href="https://abhijeetbisht19.github.io" target="_blank" class="btn-outline">Portfolio ↗</a>
+      </div>
+    </div>
+
+    <div class="hero-stats" style="flex-shrink:0;">
+      <div class="stat-pill">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">PL/SQL Procedures</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-number">100+</span>
+        <span class="stat-label">Defects Resolved</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-number">95%</span>
+        <span class="stat-label">Client Satisfaction</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-number">2+</span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="reveal">
+  <div class="section-label">Where I've worked</div>
+  <h2 class="section-title">Professional Experience</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot current"></div>
+      <div class="exp-header">
+        <div class="exp-role">Programmer Analyst</div>
+        <span class="exp-badge">Dec 2024 – Present</span>
+      </div>
+      <div class="exp-company"><strong>Cognizant</strong> · Bengaluru, Karnataka, India</div>
+      <ul class="exp-points">
+        <li>Gathered business requirements, conducted <strong>gap analysis</strong>, and defined acceptance criteria with cross-functional stakeholders within <strong>Agile/Scrum sprints using Jira</strong> — delivering integrations on time with 95%+ client satisfaction.</li>
+        <li>Mapped and optimised business processes for <strong>Oracle Fusion AR and AP</strong> within banking & financial services: processed invoice, receipt, and payment data for <strong>Bank of America and CITIZEN Bank</strong>, automating remittance and Blackline reconciliation workflows.</li>
+        <li>Designed solution architecture for <strong>Oracle Fusion SCM</strong> (Procurement, Inventory, Order Management): optimised PO Lifecycle and PIM flows; built <strong>REST API integrations with DataLake</strong> for real-time sync.</li>
+        <li>Developed and optimised <strong>50+ PL/SQL procedures, packages, and functions</strong> for data extraction, transformation, and migration — reducing data processing time by <strong>50%</strong> and ensuring data integrity across Oracle Fusion systems.</li>
+        <li>Designed <strong>Oracle APEX Stakeholder Self-Service Dashboard</strong> post requirements workshops, enabling data visualisation, reporting, and one-click processing for business users.</li>
+      </ul>
+      <div class="exp-tags">
+        <span class="chip chip-blue">PL/SQL</span>
+        <span class="chip chip-blue">Oracle Fusion</span>
+        <span class="chip chip-green">REST API</span>
+        <span class="chip chip-purple">ETL</span>
+        <span class="chip chip-yellow">Oracle APEX</span>
+        <span class="chip chip-blue">Agile / Jira</span>
+        <span class="chip chip-green">Business Analysis</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Programmer Analyst Trainee</div>
+        <span class="exp-badge past">Nov 2023 – Dec 2024</span>
+      </div>
+      <div class="exp-company"><strong>Cognizant</strong> · Bengaluru, Karnataka, India</div>
+      <ul class="exp-points">
+        <li>Performed end-to-end <strong>User Acceptance Testing (UAT)</strong> for Oracle Fusion AR, AP, and SCM implementations — identifying and resolving <strong>100+ defects</strong> across financial and supply chain modules.</li>
+        <li>Authored <strong>process flow documentation and configuration workbooks</strong> using Microsoft Visio and Excel for stakeholder sign-off.</li>
+      </ul>
+      <div class="exp-tags">
+        <span class="chip chip-blue">Oracle Fusion AR/AP/SCM</span>
+        <span class="chip chip-green">UAT</span>
+        <span class="chip chip-yellow">Microsoft Visio</span>
+        <span class="chip chip-purple">Process Documentation</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+  <div class="section-label">What I work with</div>
+  <h2 class="section-title">Technical Skills</h2>
+
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Business Analysis</div>
+      <div class="skill-chips">
+        <span class="chip">Requirements Gathering</span>
+        <span class="chip">Gap Analysis</span>
+        <span class="chip">Process Mapping</span>
+        <span class="chip">Stakeholder Management</span>
+        <span class="chip">UAT</span>
+        <span class="chip">Solution Design</span>
+        <span class="chip">Agile / Scrum</span>
+        <span class="chip">Jira</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Programming</div>
+      <div class="skill-chips">
+        <span class="chip chip-blue">Oracle SQL</span>
+        <span class="chip chip-blue">PL/SQL</span>
+        <span class="chip chip-yellow">Python</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Cloud & ERP</div>
+      <div class="skill-chips">
+        <span class="chip chip-blue">Oracle Fusion AR/AP/SCM</span>
+        <span class="chip chip-blue">Oracle APEX</span>
+        <span class="chip chip-purple">Oracle DB 26ai / 23ai</span>
+        <span class="chip chip-green">Oracle Integration Cloud</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Integration & APIs</div>
+      <div class="skill-chips">
+        <span class="chip chip-green">RESTful API</span>
+        <span class="chip chip-green">SOAP / WSDL</span>
+        <span class="chip chip-purple">ETL (Extract, Transform, Load)</span>
+        <span class="chip chip-blue">OIC</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Data & Reporting</div>
+      <div class="skill-chips">
+        <span class="chip chip-yellow">Tableau</span>
+        <span class="chip chip-yellow">Microsoft Visio</span>
+        <span class="chip chip-yellow">Excel</span>
+        <span class="chip chip-purple">Jupyter</span>
+        <span class="chip">PyCharm</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects" class="reveal">
+  <div class="section-label">Things I've built</div>
+  <h2 class="section-title">Projects</h2>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-icon">⚡</div>
+      <div class="project-title">Oracle Fusion — AR Receipts & Remittances Integration</div>
+      <p class="project-desc">End-to-end integration connecting Point-of-Sale invoice data with Oracle Fusion AR for Bank of America and CITIZEN Bank. Built a PL/SQL package to extract, transform, and validate bank transaction data; implemented REST API calls to auto-generate AR receipts and apply invoice payments — eliminating manual data entry entirely.</p>
+      <div class="exp-tags">
+        <span class="chip chip-blue">PL/SQL</span>
+        <span class="chip chip-green">REST API</span>
+        <span class="chip chip-blue">Oracle Fusion AR</span>
+        <span class="chip chip-purple">ETL</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🤖</div>
+      <div class="project-title">Oracle SELECT AI Agent for Order Refunds</div>
+      <p class="project-desc">Built an Oracle SELECT AI Agent that processes natural language prompts in Oracle 26AI to autonomously manage and update Order Refund records in the database — reducing manual intervention in refund workflows and demonstrating applied AI within enterprise ERP systems.</p>
+      <div class="exp-tags">
+        <span class="chip chip-purple">Oracle 26AI</span>
+        <span class="chip chip-blue">SELECT AI</span>
+        <span class="chip chip-green">NLP</span>
+        <span class="chip chip-blue">Oracle Fusion</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">📊</div>
+      <div class="project-title">Tableau Sales & Financial Analytics Dashboard</div>
+      <p class="project-desc">Designed and built interactive Tableau dashboards for sales and financial data analysis, delivering visual insights on key metrics, trends, and KPIs to support data-driven decision-making and reporting for business stakeholders.</p>
+      <div class="exp-tags">
+        <span class="chip chip-yellow">Tableau</span>
+        <span class="chip chip-green">Data Visualisation</span>
+        <span class="chip chip-purple">KPI Reporting</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🧠</div>
+      <div class="project-title">AI Document Summarisation Tool</div>
+      <p class="project-desc">Built at the Vibe Code Hackathon using GitHub Copilot — upload a Word document, receive a sharp executive summary ready for SDLC requirements documentation. Reduced hours of manual summarisation to seconds using AI/NLP.</p>
+      <div class="exp-tags">
+        <span class="chip chip-yellow">Python</span>
+        <span class="chip chip-blue">AI / NLP</span>
+        <span class="chip chip-green">GitHub Copilot</span>
+        <span class="chip chip-purple">Hackathon</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🎬</div>
+      <div class="project-title">ML Movie Recommendation Engine</div>
+      <p class="project-desc">Final-year project: a content-based recommendation engine built with Python data science libraries. Analyses IMDb datasets across genre classification, user ratings, and popularity metrics to deliver personalised movie suggestions.</p>
+      <div class="exp-tags">
+        <span class="chip chip-yellow">Python</span>
+        <span class="chip chip-purple">Machine Learning</span>
+        <span class="chip chip-green">Data Science</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" class="reveal">
+  <div class="section-label">Credentials</div>
+  <h2 class="section-title">Certifications</h2>
+
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon-wrap">🏅</div>
+      <div>
+        <div class="cert-name">1Z0-071: Oracle Database SQL Certified Associate</div>
+        <div class="cert-org">Oracle</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon-wrap">🏅</div>
+      <div>
+        <div class="cert-name">Oracle Data Platform Certified Associate</div>
+        <div class="cert-org">Oracle</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon-wrap">🏅</div>
+      <div>
+        <div class="cert-name">Oracle Financial Business Process Certified Associate</div>
+        <div class="cert-org">Oracle</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon-wrap">📊</div>
+      <div>
+        <div class="cert-name">Databases & SQL for Data Science with Python</div>
+        <div class="cert-org">IBM / Coursera</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon-wrap">⚡</div>
+      <div>
+        <div class="cert-name">SQL Advanced Certification</div>
+        <div class="cert-org">HackerRank</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon-wrap">🚀</div>
+      <div>
+        <div class="cert-name">Vibe Code Hackathon — GitHub Copilot</div>
+        <div class="cert-org">Cognizant</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Research -->
+  <div style="margin-top:40px;">
+    <div class="section-label" style="margin-bottom:16px;">Research</div>
+    <div class="research-card">
+      <div class="research-num">01</div>
+      <div class="research-content">
+        <div class="research-title">Machine Learning based Finance Analyzer</div>
+        <div class="research-venue">22nd IEEE International Conference on Machine Learning Applications · Peer-reviewed</div>
+        <div style="margin-top:10px;">
+          <span class="chip chip-blue" style="font-size:0.75rem;">IEEE</span>
+          <span class="chip chip-purple" style="margin-left:6px;font-size:0.75rem;">Machine Learning</span>
+          <span class="chip chip-green" style="margin-left:6px;font-size:0.75rem;">Finance</span>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="profile-info-row">
-            <div class="profile-actions" style="margin-top: 0;">
-                <div class="profile-avatar-wrap">
-                    <div class="profile-avatar">AB</div>
-                    <div class="online-dot"></div>
-                </div>
-                <div style="display:flex;gap:8px;align-items:center;padding-top:12px;">
-                    <a href="mailto:abhijeetbisht19@gmail.com" class="btn-contact">Email Me</a>
-                    <a href="https://linkedin.com/in/abhijeetbisht19" target="_blank" class="btn-hire">LinkedIn ↗</a>
-                </div>
-            </div>
-        </div>
+</section>
 
-        <div class="profile-name-section">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
-                <span class="profile-display-name">Abhijeet Bisht</span>
-                <span class="verified">✦</span>
-            </div>
-            <div class="profile-handle-display">@abhijeetbisht19</div>
-            <p class="profile-bio">
-                Programmer Analyst at Cognizant — I build the invisible bridges between enterprise systems. Oracle Fusion, PL/SQL, REST APIs. Turning complex data problems into clean, working solutions.
-            </p>
-            <div class="profile-meta">
-                <span class="meta-item"><span class="meta-icon">📍</span> Bengaluru, India</span>
-                <span class="meta-item"><span class="meta-icon">🔗</span> <a href="https://abhijeetbisht19.github.io" target="_blank">abhijeetbisht19.github.io</a></span>
-                <span class="meta-item"><span class="meta-icon">🎓</span> Graphic Era University '23</span>
-            </div>
-            <div class="profile-stats">
-                <div class="stat"><strong>50+</strong> <span>PL/SQL Procedures Written</span></div>
-                <div class="stat"><strong>100+</strong> <span>Defects Resolved</span></div>
-                <div class="stat"><strong>95%+</strong> <span>Client Satisfaction</span></div>
-            </div>
-        </div>
+<div class="section-divider"></div>
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <div class="tab active" id="tab-posts" onclick="switchTab('posts')">Posts</div>
-            <div class="tab" id="tab-exp" onclick="switchTab('exp')">Experience</div>
-            <div class="tab" id="tab-projects" onclick="switchTab('projects')">Projects</div>
-        </div>
+<!-- EDUCATION -->
+<section id="education" class="reveal">
+  <div class="section-label">Academic background</div>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-card">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-school">Graphic Era University</div>
+      <div class="edu-degree">Bachelor of Technology in Computer Science & Technology</div>
+      <div class="edu-date">July 2019 – June 2023 · Dehradun, India</div>
+    </div>
+  </div>
+</section>
 
-        <!-- ─── POSTS TAB ─── -->
-        <div id="posts-tab">
+<div class="section-divider"></div>
 
-            <!-- Pinned post -->
-            <div class="post" id="experience">
-                <div class="post-avatar">AB</div>
-                <div class="post-body">
-                    <div class="pinned-label">📌 Pinned</div>
-                    <div class="post-header">
-                        <span class="post-name">Abhijeet Bisht</span>
-                        <span class="verified">✦</span>
-                        <span class="post-handle">@abhijeetbisht19</span>
-                        <span class="post-dot">·</span>
-                        <span class="post-time">Dec 2024</span>
-                    </div>
-                    <div class="post-content">
-                        Promoted to <strong>Programmer Analyst</strong> at Cognizant 🎉<br><br>
-                        After a year of deep-diving into Oracle Fusion testing and implementation, I'm now leading integrations and ETL pipelines at scale. Here's what the past year looked like:
-                    </div>
-                    <div class="post-card">
-                        <div class="post-card-title">🏢 Cognizant — Programmer Analyst</div>
-                        <div class="post-card-desc">Dec 2024 – Present · Bengaluru, India<br><br>
-                            Built <span style="color:var(--text)">50+ PL/SQL procedures</span> for ETL operations, cutting data processing time by 30%. Wired Oracle Fusion Cloud into BoA, DataLake, and Blackline via REST APIs. Shipped Oracle APEX web apps for business reporting. The kind of work that's invisible when it's working perfectly.
-                        </div>
-                        <div class="post-card-tags">
-                            <span class="tag tag-blue">PL/SQL</span>
-                            <span class="tag tag-blue">Oracle Fusion</span>
-                            <span class="tag tag-green">REST API</span>
-                            <span class="tag tag-purple">ETL</span>
-                            <span class="tag tag-yellow">Oracle APEX</span>
-                        </div>
-                    </div>
-                    <div class="post-actions">
-                        <span class="action"><span class="action-icon">💬</span> Discuss</span>
-                        <span class="action"><span class="action-icon">🔗</span> Share</span>
-                        <span class="action"><span class="action-icon">⭐</span></span>
-                    </div>
-                </div>
-            </div>
+<!-- CONTACT -->
+<section id="contact" style="padding:90px 5vw;max-width:1200px;margin:0 auto;" class="reveal">
+  <div class="contact-inner">
+    <div class="section-label" style="margin-bottom:10px;">Let's connect</div>
+    <h2 class="contact-title">Open to new opportunities</h2>
+    <p class="contact-sub">Whether it's a role, a project, or just a conversation about Oracle Fusion — I'd love to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:abhijeetbisht19@gmail.com" class="contact-link">
+        ✉️ abhijeetbisht19@gmail.com
+      </a>
+      <a href="tel:+917457894930" class="contact-link">
+        📞 +91 74578 94930
+      </a>
+      <a href="https://linkedin.com/in/abhijeetbisht19" target="_blank" class="contact-link">
+        💼 LinkedIn
+      </a>
+      <a href="https://abhijeetbisht19.github.io" target="_blank" class="contact-link">
+        🌐 Portfolio
+      </a>
+    </div>
+  </div>
+</section>
 
-            <!-- Experience 2 -->
-            <div class="post">
-                <div class="post-avatar purple">AB</div>
-                <div class="post-body">
-                    <div class="post-header">
-                        <span class="post-name">Abhijeet Bisht</span>
-                        <span class="post-handle">@abhijeetbisht19</span>
-                        <span class="post-dot">·</span>
-                        <span class="post-time">Nov 2023</span>
-                    </div>
-                    <div class="post-content">
-                        Started my career at Cognizant as a <strong>Programmer Analyst Trainee</strong>. First year was all about learning Oracle Fusion from the ground up — the way it really works, not just the textbook version.
-                        <br><br>
-                        Closed <span class="highlight-number">100+</span> defects during implementation testing. Every bug was a lesson in how enterprise systems can go wrong, and more importantly — how to make them right. <span class="hashtag">#OracleFusion</span> <span class="hashtag">#ERP</span>
-                    </div>
-                    <div class="post-actions">
-                        <span class="action"><span class="action-icon">💬</span> Discuss</span>
-                        <span class="action"><span class="action-icon">🔗</span> Share</span>
-                        <span class="action"><span class="action-icon">⭐</span></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-divider">Projects</div>
-
-            <!-- Project 1 -->
-            <div class="post" id="projects">
-                <div class="post-avatar green">AB</div>
-                <div class="post-body">
-                    <div class="post-header">
-                        <span class="post-name">Abhijeet Bisht</span>
-                        <span class="post-handle">@abhijeetbisht19</span>
-                        <span class="post-dot">·</span>
-                        <span class="post-time">2024</span>
-                    </div>
-                    <div class="post-content">
-                        Shipped something I'm genuinely proud of — an end-to-end <strong>AR Receipts Remittances integration</strong>. Point of Sale data flowing straight into Oracle Fusion AR with zero manual entry.
-                    </div>
-                    <div class="post-card">
-                        <div class="post-card-title">⚡ Oracle Fusion – AR Receipts Remittances Integration</div>
-                        <div class="post-card-desc">
-                            Built a PL/SQL package to extract, transform, and validate POS transaction data, then used REST API endpoints to auto-generate AR receipts and apply invoice payments. The kind of automation that pays for itself on day one.
-                        </div>
-                        <div class="post-card-tags">
-                            <span class="tag tag-blue">PL/SQL</span>
-                            <span class="tag tag-blue">Oracle Fusion</span>
-                            <span class="tag tag-green">REST API</span>
-                            <span class="tag tag-purple">ETL</span>
-                        </div>
-                    </div>
-                    <div class="post-actions">
-                        <span class="action"><span class="action-icon">💬</span> Discuss</span>
-                        <span class="action"><span class="action-icon">🔗</span> Share</span>
-                        <span class="action"><span class="action-icon">⭐</span></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="post">
-                <div class="post-avatar yellow">AB</div>
-                <div class="post-body">
-                    <div class="post-header">
-                        <span class="post-name">Abhijeet Bisht</span>
-                        <span class="post-handle">@abhijeetbisht19</span>
-                        <span class="post-dot">·</span>
-                        <span class="post-time">Hackathon</span>
-                    </div>
-                    <div class="post-content">
-                        Built an <strong>AI Document Summarization Tool</strong> at the Vibe Code Hackathon — upload a Word doc, get back a sharp executive summary ready for SDLC requirements. What used to take hours, now takes seconds. <span class="hashtag">#AI</span> <span class="hashtag">#NLP</span> <span class="hashtag">#Python</span>
-                    </div>
-                    <div class="post-card-tags" style="margin-bottom:12px;">
-                        <span class="tag tag-blue">AI / NLP</span>
-                        <span class="tag tag-yellow">Python</span>
-                        <span class="tag tag-green">Document Processing</span>
-                    </div>
-                    <div class="post-actions">
-                        <span class="action"><span class="action-icon">💬</span> Discuss</span>
-                        <span class="action"><span class="action-icon">🔗</span> Share</span>
-                        <span class="action"><span class="action-icon">⭐</span></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="post">
-                <div class="post-avatar">AB</div>
-                <div class="post-body">
-                    <div class="post-header">
-                        <span class="post-name">Abhijeet Bisht</span>
-                        <span class="post-handle">@abhijeetbisht19</span>
-                        <span class="post-dot">·</span>
-                        <span class="post-time">2023</span>
-                    </div>
-                    <div class="post-content">
-                        Final-year project: a <strong>Machine Learning Movie Recommendation Engine</strong>. Content-based filtering on IMDb datasets — genre, ratings, popularity. It actually works, which was the most satisfying part. <span class="hashtag">#MachineLearning</span> <span class="hashtag">#Python</span>
-                    </div>
-                    <div class="post-card-tags" style="margin-bottom:12px;">
-                        <span class="tag tag-purple">Machine Learning</span>
-                        <span class="tag tag-yellow">Python</span>
-                        <span class="tag tag-green">Data Science</span>
-                    </div>
-                    <div class="post-actions">
-                        <span class="action"><span class="action-icon">💬</span> Discuss</span>
-                        <span class="action"><span class="action-icon">🔗</span> Share</span>
-                        <span class="action"><span class="action-icon">⭐</span></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Research -->
-            <div class="post" id="certifications">
-                <div class="post-avatar green">AB</div>
-                <div class="post-body">
-                    <div class="post-header">
-                        <span class="post-name">Abhijeet Bisht</span>
-                        <span class="post-handle">@abhijeetbisht19</span>
-                        <span class="post-dot">·</span>
-                        <span class="post-time">IEEE Conference</span>
-                    </div>
-                    <div class="post-content">
-                        Got a research paper published at the <strong>22nd IEEE International Conference on ML Applications</strong>. Topic: Machine Learning Based Finance Analyzer. Applying ML where the stakes are actually high. <span class="hashtag">#IEEE</span> <span class="hashtag">#Research</span>
-                    </div>
-                    <div class="post-card">
-                        <div class="post-card-title">📄 Machine Learning based Finance Analyzer</div>
-                        <div class="post-card-desc">22nd IEEE International Conference on Machine Learning Applications · Peer-reviewed research paper</div>
-                        <a href="paper.pdf" target="_blank" style="display:inline-block;margin-top:10px;font-size:0.85rem;color:var(--accent);text-decoration:none;">View Paper ↗</a>
-                    </div>
-                    <div class="post-actions">
-                        <span class="action"><span class="action-icon">💬</span> Discuss</span>
-                        <span class="action"><span class="action-icon">🔗</span> Share</span>
-                        <span class="action"><span class="action-icon">⭐</span></span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- Right Sidebar -->
-    <aside class="right-sidebar">
-
-        <!-- Skills -->
-        <div class="sidebar-widget">
-            <div class="widget-title">Core Skills</div>
-            <div class="skill-row">
-                <span class="skill-label">Oracle SQL / PL/SQL</span>
-                <div class="skill-bar-wrap"><div class="skill-bar" style="width:92%"></div></div>
-            </div>
-            <div class="skill-row">
-                <span class="skill-label">Oracle Fusion Cloud</span>
-                <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
-            </div>
-            <div class="skill-row">
-                <span class="skill-label">REST API / Integration</span>
-                <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
-            </div>
-            <div class="skill-row">
-                <span class="skill-label">ETL Pipelines</span>
-                <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
-            </div>
-            <div class="skill-row">
-                <span class="skill-label">Oracle APEX</span>
-                <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
-            </div>
-            <div class="skill-row">
-                <span class="skill-label">Python</span>
-                <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
-            </div>
-        </div>
-
-        <!-- Certifications -->
-        <div class="sidebar-widget">
-            <div class="widget-title">Certifications</div>
-
-            <div class="cert-item">
-                <div class="cert-icon">🏅</div>
-                <div class="cert-info">
-                    <div class="cert-name">1Z0-071: Oracle DB SQL Certified Associate</div>
-                    <div class="cert-org">Oracle</div>
-                    <a href="oracle_sql.png" target="_blank">View →</a>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-icon">🏅</div>
-                <div class="cert-info">
-                    <div class="cert-name">Oracle Data Platform Certified Associate</div>
-                    <div class="cert-org">Oracle</div>
-                    <a href="oracle_dataplatform.png" target="_blank">View →</a>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-icon">🏅</div>
-                <div class="cert-info">
-                    <div class="cert-name">Oracle Financials Business Process Certified Associate</div>
-                    <div class="cert-org">Oracle</div>
-                    <a href="oracle_fbp.png" target="_blank">View →</a>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-icon">📊</div>
-                <div class="cert-info">
-                    <div class="cert-name">Databases & SQL for Data Science with Python</div>
-                    <div class="cert-org">IBM / Coursera</div>
-                    <a href="database.png" target="_blank">View →</a>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-icon">⚡</div>
-                <div class="cert-info">
-                    <div class="cert-name">SQL Advanced Certification</div>
-                    <div class="cert-org">HackerRank</div>
-                    <a href="sql_advanced.png" target="_blank">View →</a>
-                </div>
-            </div>
-
-            <div class="cert-item">
-                <div class="cert-icon">🚀</div>
-                <div class="cert-info">
-                    <div class="cert-name">Vibe Code Hackathon — GitHub Copilot</div>
-                    <div class="cert-org">Cognizant</div>
-                    <a href="vibe_code.png" target="_blank">View →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Education -->
-        <div class="sidebar-widget">
-            <div class="widget-title">Education</div>
-            <div class="education-item">
-                <div class="edu-school">Graphic Era University</div>
-                <div class="edu-degree">B.Tech in Computer Science & Technology</div>
-                <div class="edu-date">2019 – 2023 · Dehradun</div>
-            </div>
-        </div>
-
-        <!-- Contact -->
-        <div class="sidebar-widget">
-            <div class="widget-title">Get in Touch</div>
-            <div class="contact-btn-row">
-                <a href="mailto:abhijeetbisht19@gmail.com" class="contact-btn">
-                    <span class="contact-btn-icon">✉️</span> abhijeetbisht19@gmail.com
-                </a>
-                <a href="https://linkedin.com/in/abhijeetbisht19" target="_blank" class="contact-btn">
-                    <span class="contact-btn-icon">💼</span> LinkedIn Profile
-                </a>
-                <a href="https://abhijeetbisht19.github.io" target="_blank" class="contact-btn">
-                    <span class="contact-btn-icon">🌐</span> Personal Website
-                </a>
-            </div>
-        </div>
-
-    </aside>
-
-</div>
+<footer>
+  © 2025 Abhijeet Bisht · Designed & built with care
+</footer>
 
 <script>
-    function switchTab(tab) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.getElementById('tab-' + tab).classList.add('active');
-        // In a real implementation, you'd show/hide sections here
-        // For now the feed shows all content continuously
-        const sectionMap = { posts: 'experience', exp: 'experience', projects: 'projects' };
-        const target = document.getElementById(sectionMap[tab]);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
     }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
